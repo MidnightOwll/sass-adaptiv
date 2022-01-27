@@ -5,7 +5,7 @@
     z-index: 20;
 
     &__row {
-        display: flex;
+        @include flexbox();
         justify-content: center;
         align-items: center;
         height: 85px;
@@ -18,8 +18,11 @@
         position: absolute;
         top: 0;
         left: 50%;
-        transform: translate(-50%, 0%);
-        
+        transform: translate(-50%, 0%);        
+        z-index: 3;
+    }
+    @media (max-width: 767px){
+        top: 10px;
     }
 }
 .menu {
@@ -28,7 +31,7 @@
     }
 
     &__list {
-        display: flex;
+        @include flexbox();
         li {
             position: relative;
             padding: 0px 37.5px;
@@ -46,6 +49,7 @@
                 top: 50%;
                 margin:  -2px 0px 0px 0px;                
             }
+            &:nth-child(2)::after,
             &:last-child::after{
                 display: none;
             }
@@ -59,5 +63,75 @@
         text-transform: uppercase;
         letter-spacing: 0.2em;
         color: #4d4959;
+    }
+    @media (max-width: 767px){
+        &__body {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #4d4959;
+            top: 0;
+            left: 0;
+            padding: 115px 0px 25px 0px;
+            overflow: auto;
+            transform: translate(0, -100%);
+            //!!!исправить
+            transition: 1s;
+            &.active{
+                transform: translate(0, 0);
+            }
+        }
+        &__list {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            li{
+                padding: 25px 0px!important;
+                &:last-child{
+                    padding: 0;
+                }
+                &::after{
+                    position: absolute;
+                    @include  bg-circl(5px,#fff);
+                    right: 50%;
+                    top: 100%;
+                    margin:  -2px 0px 0px 0px;             
+                }
+                &:nth-child(2)::after{
+                    display: block;
+                }
+            }
+        }
+        &__link {
+            color: #fff;
+            font-size: 20px;
+        }
+        
+    }
+}
+.icon-menu{
+    @media (max-width: 767px){
+        position: absolute;
+        top: 27.5px;
+        right: 15px;
+        @include  bg-circl(40px,#4d4959);        
+        z-index: 15;
+        @include flexbox();
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        & span{
+            flex: 0 0 5.5%;
+            margin: 10% 0px;
+            width: 60%;
+            background-color: #000;
+            &:nth-child(2){
+                margin: 1px;
+            }
+        }
+        &.active{
+            background-color:#7aafce;
+            color: #fff;
+        }
     }
 }
